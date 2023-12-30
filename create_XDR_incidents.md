@@ -202,19 +202,46 @@ The **JSON bundle** is very easy, this is just an assembly of every object defin
 
 And that's it.
 
-Have a look to the [**SecureX Threat Response CTIM Bundle Builder** page ](https://github.com/CiscoSecurity/tr-05-ctim-bundle-builder) to learn about a python module that simplifies **bundle** creation.
+    For reference, the following resources can help to complete the understanding of the scope of bunlde. Have a look to the [**SecureX Threat Response CTIM Bundle Builder** page ](https://github.com/CiscoSecurity/tr-05-ctim-bundle-builder) to learn about a python module that simplifies **bundle** creation.
 
 ### How to read an Incident and parse all Sightings it contains ?
 
-We understood above the steps to create an XDR **Incident** and attached **Sightings**. One common operation we will have to do is to read and parse an existing **Incident**. 
+We understood above the steps to go thru to create an XDR **Incident** and attached **Sightings**. 
 
-It makes really sense !. In some extents XDR **Incident** and **Sighting** datastorage act as a Security Log Server which can be intersting to query. So it is worthit to learn about how to parse these objects, we will creatainly have to do it frequently
+One common operation we will probably have to do is to read and parse an existing **Incident** and every attached objects. 
+
+It makes really sense !. In some extents XDR **Incident** and **Sighting** datastorage act as a Security Log Server which can be interesting to query. 
+
+A very logical use case is to create a dedicated alerting system based on **XDR Incidents**. By regurlarly pulling XDR Incident, we can created dedicated Incident Tickets into the company ticketing system.
+
+Another very interersting use case of this is Cyberranges ! In other word creating on demand fake XDR Incidents in order to train SOC Operator on Incident Response. And for this we must create within XDR Incidents from real Security situations. 
+
+The best for this is to keep all the XDR records of a real Incident logged by XDR, and we understand that XDR APIs make this very easy.
+
+So it is definitelly worthit to learn about how to read and parse all XDR Incidents objects !
+
+Let's go thru this
 
 When we create the **Incident** and all **Sightings** it contains, we assign IDs to all objects, and these IDs will be used within the **relationships**. These IDs are known as **target_ref** for incident ID and **source_ref** for Sighting IDs.
 
 ![](./assets/img/2.png)
 
 For reading **sigthings** that belong to an **Incident** we must first retrieve its **target_ref** and search for **relationships** based on this **target_ref** information. Thanks to this, we get the list of all **sightings** that belong to the **Incident** and we can get their **source_ref** IDs. Then, for each **Sighting**, based on its **source_ref** we parse it and extract from it everything which is relevant for additionnal investigation. This is mainly **Targets** and **Observables**
+
+So we understand that External IDs are the most important entities to use to rebuild all the relationships between every objects that belong to an Incident. And this is what to use in order to retreive every objects related to each other into XDR.
+
+So the example described above has to be applied to :
+
+- Incidents
+- Sightings
+- Relationships
+- Judgments
+
+But to be complete as well to :
+
+- Indicators
+- Verdicts
+- and some other objects
 
 ## XDR and SecureX don't create incidents the same way !
 
