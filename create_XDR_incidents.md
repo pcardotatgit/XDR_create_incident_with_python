@@ -184,13 +184,21 @@ Then we have to add  into it  one or several **Sightings**.
 
 ![](./assets/img/1.png)
 
-Then we add into the JSON payload, **relationships** that link every **sightings** to the **Incident** thanks to a **"member of"** **relationship**.
+Next we add into the JSON payload, the **relationships** that link every **sightings** to the **Incident** thanks to a **"member of"** **relationship**.
 
-Into every single **sighting**, we have to include every **targets** and **observables** extracted from the raw Security Solution Alert. And we have to create as well **relationships** between all these objects within the **sightings** itself. These 3 things, **targets**, **observables** and **relationships** are 3 separate keys into the **Sighting** JSON data.
+Then, Into every single **sighting**, we have to include every **targets** and **observables** extracted from the raw Security Solution Alert. And we have to create as well **observables relationships** between all these objects within the **sightings** itself. These 3 things, **targets**, **observables** and **relationships** are 3 separate keys that must exist into the **Sighting** JSON data.
 
-The way to link object together is to use their ID. Actually external IDs which are unique identifiers within the XDR CTIM datastructure which must already exists before building the bundle JSON payload. That actually means that one of the first operation to do when we have identified all the objects that will compose the **Incident**, is to create every need **external IDs : xid**.
+The way to link object together is to use their ID. Actually External IDs which are unique identifiers within the XDR CTIM datastructure which must already exists before building the bundle JSON payload. We talk about External IDs because these IDs are not created by the XDR API when we add objects, they are created by the script which creates the **Incident**. Their values must be strickly managed in order to avoid discrepencies or conflicts. Which is not easy do to. The **1-create_XDR_incident.py** python scripts contains dedicated function that manage External IDs for every key objects.
 
-Then the bundle creation is just an assembly of every object definition ( dictionnary keys ) into a JSON payload.
+Some guidelines exist as best practices to create external IDs. You can have a look to it here [How to Build an Excellent External ID](https://github.com/threatgrid/ctim/blob/master/doc/tutorials/how-to-build-an-excellent-external-id.md)
+
+So regarding External IDs, all this above means that one of the first operation to do when we have identified all the objects that will compose the **Incident**, is to create every need **external IDs : xid**.
+
+One benefits of the python script shared with you is that you don't have to take care about External IDs, the python script takes care about them for you.
+
+Once we have every objects and their External IDs, then we can create the **Incident JSON Bundle**
+
+The **JSON bundle** is very easy, this is just an assembly of every object definition ( dictionnary keys ) into a final JSON payload that will be passed later to the XDR Bundle API.
 
 And that's it.
 
