@@ -23,7 +23,13 @@ For production, using the **demo_data.py** script is definitely not the good opt
 ```python
 def create_sighting_object(xid,title,observables,targets,confidence,description,source,tlp,severity):
     ...
+    sighting_obj_json["observables"] = json.loads(observables)
+    ...
+    sighting_obj_json["targets"] = json.loads(targets)
+    ...
+    sighting_obj_json["relations"] = json.loads(sighting_relations)
 ```
+
 This function is the function that consume the JSON payloads needed for the **Incident** creation.
 
 ## Install the python environment
