@@ -18,7 +18,13 @@ If you have a look to this file, you understand that the variables it contains a
 
 Let's imagine that you want to create your incident from any Security Product Alert ( ex : syslog server ). What you can do is to create a parser process that  read the alert where it this one is ( within the syslog server ) and extract from it every relevant informations ( targets, observable, relationship) and that create the expected JSON data.
 
-For production, using the **demo_data.py** script is definitely not the good option. The best is to add parsing function into the **1-create_XDR_incident.py** script. And modify the **def create_sighting_object(xid,title,observables,targets,confidence,description,source,tlp,severity):** function which is the function that consume these JSON payloads needed for the **Incident** creation.
+For production, using the **demo_data.py** script is definitely not the good option. The best is to add parsing function into the **1-create_XDR_incident.py** script. And modify the following function.
+
+```python
+def create_sighting_object(xid,title,observables,targets,confidence,description,source,tlp,severity):
+    ...
+```
+This function is the function that consume the JSON payloads needed for the **Incident** creation.
 
 ## Install the python environment
 
