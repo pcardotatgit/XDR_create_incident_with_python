@@ -44,7 +44,7 @@ You need the **crayons** and **requests** python modules.
 
 Edit the config.txt initialization file and assign the correct values to the variables the file contains.
 
-Then you are ready to go
+**That's it ! you are ready to go !**
 
 ## Run the script
 
@@ -52,7 +52,15 @@ You have to read the **1-create_XDR_incident.py**
 
     python 1-create_XDR_incident.py
 
-Then you just have to follow every steps one by one into the console. The result will be a new **Incident** created within the XDR **Incident Manager** and a new **sighting**. The source for both objects is : **XDR Demo**.
+Then you just have to read what happen into the python console. You can follow there every steps one by one and get familiar with this. 
+
+The result will be a new **Incident** created within the XDR **Incident Manager**. Open it into your XDR tenant and check that the new **Incident** is there.
+
+In addtion to this, a new **sighting** attached to this **Incident** is created as well. 
+
+The source for both objects is : **XDR Demo**.
+
+If you setted up the [**Incident Webex Alerting**]() workflow
 
 ## What happens ?
 
@@ -79,7 +87,7 @@ Errors will be most of the time due to an invalid JSON payload.
 
 Within the **sightinh** JSON payload you have to notice that every object mentionned into observable relationships must be declared has an observable as well. If one observable is missing the sighting will not be created.
  
-## Delete the XDR Demo Incident and sithing
+## Delete the XDR Demo Incident and sighting
 
 In order to clean up everything into XDR, just run the
 
@@ -87,13 +95,13 @@ In order to clean up everything into XDR, just run the
 
 This script delete every Incident, Sightings, Judgments, relationships which have their source = XDR_Demo    
     
-## Required fields for every objects
+## What are the Required fields for objects ?
 
 Have a look to the **1-create_XDR_incident.py** script. You will easily identitify dedicated python functions that create JSON payload for every **Incident** objects. 
 
-These functions just builds python dictionnaries and return the JSON dumps of these dictionnaries. Python is very efficient for generating JSON payloads.
+These functions just builds python dictionnaries and return the JSON dumps of these dictionnaries. 
 
-It is easy to understand from these function a list of mandatory and required fields need to build the JSON payloads
+It is easy to understand from these functions, lists of mandatory and required fields needed to build JSON payloads
 
 Here is a list of these fields :
 
