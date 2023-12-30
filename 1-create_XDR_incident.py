@@ -219,7 +219,6 @@ def today():
     return d.strftime("%Y-%m-%d")
 
 def create_sighting_object(xid,title,observables,targets,confidence,description,source,tlp,severity):
-    #start_date = dateTime.strftime("%Y-%m-%dT%H:%M:%SZ")
     sighting_obj_json = {}
     sighting_obj_json["confidence"] = "High"
     print("   - Get Observables and add them into sighting definition")

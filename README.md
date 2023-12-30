@@ -1,10 +1,24 @@
 # Understand how to create an XDR Incident and attached sightings
 
-This article share a python script that create and XDR Incident and one attached sightings.
+This article share python scripts that create an XDR Incident and attach one sighting into it.
 
-The goal is to share with the audience an example of working static Incident creation done by a python script. And detail into the python script every steps of the Incident creation.
+The goal is to share with the audience an example of working static Incident creation example done by a python script. 
 
-This script applies into on python scripts everything that is described into the **XDR Incident creation** details. Refer to this documentation if you want to understand every details of what the python script does.
+This python script aim is pedagy. For this reason every steps of the creation of the Incident are shown one by one.
+
+This script relies on everything that is described into the **Dealing with XDR CTIM**(https://github.com/pcardotatgit/XDR_create_incident_with_python/blob/main/create_XDR_incidents.md) details. Refer to this documentation if you want to understand every details of what the python script does.
+
+## How to create your own Incident ?
+
+Let's answer now to the question about how to create your own XDR **Incident** with your own data. 
+
+It is very simple, you just have to edit the **demo_data.py** script and replace the data this file contains by your own data. Don't change variable names, just change the values of these variables.
+
+If you have a look to this file, you understand that the variables it contains are string representations of JSON payloads. Your mission then will be to create valid JSON payloads.
+
+Let's imagine that you want to create your incident from any Security Product Alert ( ex : syslog server ). What you can do is to create a parser process that  read the alert where it this one is ( within the syslog server ) and extract from it every relevant informations ( targets, observable, relationship) and that create the expected JSON data.
+
+For production, using the **demo_data.py** script is definitely not the good option. The best is to add parsing function into the **1-create_XDR_incident.py** script. And modify the **def create_sighting_object(xid,title,observables,targets,confidence,description,source,tlp,severity):** function which is the function that consume these JSON payloads needed for the **Incident** creation.
 
 ## Install the python environment
 
@@ -55,10 +69,11 @@ Within the **sightinh** JSON payload you have to notice that every object mentio
  
 ## Delete the XDR Demo Incident and sithing
 
-In order to clean up everything just run the
+In order to clean up everything into XDR, just run the
 
     python 2-delete_XDR_demo_data.py
-    
+
+This script delete every Incident, Sightings, Judgments, relationships which have their source = XDR_Demo    
     
 ## Required fields for every objects
 
@@ -72,35 +87,35 @@ Here is a list of these fields :
 
 **Incident :**
 
-    ```python
-    def create_incident_json():
-        incident_object = {}
-        incident_object["description"] = description
-        incident_object["schema_version"] = "1.3.9"
-        incident_object["type"] = "incident"
-        incident_object["source"] = "XDR Demo"
-        incident_object["short_description"] = incident_title
-        incident_object["title"] = incident_title
-        incident_object["incident_time"] = { "discovered": dateTime.strftime("%Y-%m-%dT%H:%M:%SZ"), "opened": dateTime.strftime("%Y-%m-%dT%H:%M:%SZ") }
-        incident_object["status"] = "New" status: Must be one of ["New", "Open", "Stalled", "Containment Achieved", "Restoration Achieved", "Incident Reported", "Closed", "Rejected"]
-        incident_object["tlp"] = "amber"
-        incident_object["confidence"] = "High"  Must be one of ["Info", "Low", "Medium", "High", "None", "Unknown"]
-        incident_object["severity"] = "Critical" Must be one of ["Info", "Low", "Medium", "High", "Critical", "None", "Unknown"]
-        incident_object["id"] = xid
-        incident_object["techniques"] = ["T1036"]
-        incident_object["tactics"] = ["TA0002","TA0005"]
-        incident_object["categories"]:[categories[3]]
-        incident_object["discovery_method"]:discover_method[2]
-        incident_object["promotion_method"]:"Automated" # Manual or Automated         
-        incident_object["scores"]={}
-        incident_object["scores"]["asset"]=10
-        incident_object["scores"]["ttp"]=100
-        incident_object["scores"]["global"]=1000  
-    ```
+```python
+def create_incident_json():
+    incident_object = {}
+    incident_object["description"] = description
+    incident_object["schema_version"] = "1.3.9"
+    incident_object["type"] = "incident"
+    incident_object["source"] = "XDR Demo"
+    incident_object["short_description"] = incident_title
+    incident_object["title"] = incident_title
+    incident_object["incident_time"] = { "discovered": dateTime.strftime("%Y-%m-%dT%H:%M:%SZ"), "opened": dateTime.strftime("%Y-%m-%dT%H:%M:%SZ") }
+    incident_object["status"] = "New" status: Must be one of ["New", "Open", "Stalled", "Containment Achieved", "Restoration Achieved", "Incident Reported", "Closed", "Rejected"]
+    incident_object["tlp"] = "amber"
+    incident_object["confidence"] = "High"  Must be one of ["Info", "Low", "Medium", "High", "None", "Unknown"]
+    incident_object["severity"] = "Critical" Must be one of ["Info", "Low", "Medium", "High", "Critical", "None", "Unknown"]
+    incident_object["id"] = xid
+    incident_object["techniques"] = ["T1036"]
+    incident_object["tactics"] = ["TA0002","TA0005"]
+    incident_object["categories"]:[categories[3]]
+    incident_object["discovery_method"]:discover_method[2]
+    incident_object["promotion_method"]:"Automated" # Manual or Automated         
+    incident_object["scores"]={}
+    incident_object["scores"]["asset"]=10
+    incident_object["scores"]["ttp"]=100
+    incident_object["scores"]["global"]=1000  
+```
  
-discover_method=["Agent Disclosure","Antivirus","Audit","Customer","External - Fraud Detection","Financial Audit","HIPS","IT Audit","Incident Response","Internal - Fraud Detection","Law Enforcement"]
+**discover_method**=["Agent Disclosure","Antivirus","Audit","Customer","External - Fraud Detection","Financial Audit","HIPS","IT Audit","Incident Response","Internal - Fraud Detection","Law Enforcement"]
 
-categories=["Denial of Service","Exercise/Network Defense Testing","Improper Usage","Investigation","Malicious Code","Scans/Probes/Attempted Access","Unauthorized Access"]
+**categories**=["Denial of Service","Exercise/Network Defense Testing","Improper Usage","Investigation","Malicious Code","Scans/Probes/Attempted Access","Unauthorized Access"]
  
 **Sightings :**
 
