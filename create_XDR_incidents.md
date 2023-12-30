@@ -37,23 +37,25 @@ That means that **Sightings** are created from original the Security products ra
 
 An **Incident** is supposed to contain several **Sightings** that can have been created from several separated Security Solutions **events**.
 
-What we understand is that these Security Solutions are supposed to create **sightings** into XDR at the same time they detect a threat and generate a native alert for it. This is actually what happens with Security Products integrated within XDR. They all run a dedicated additionnal process which monitors product events directly within the product, with for some of these events, uses XDR **Sighting** APIs to create the sighting within XDR. This is the "event to sightings promotion process" which creates **Sightings** not for every product events but for the most impactful Security Events. 
+What we understand is that these Security Solutions are supposed to create **sightings** into XDR at the same time they detect a threat and generate a native alert for it. This is actually what happens with Security Products integrated within XDR. They all run a dedicated additionnal process which monitors product events directly within the product, with for some of these events, using XDR **Sighting** APIs to create the **sighting** within XDR. This is the "event to sightings promotion process" which creates **Sightings** not for every product events but for the most impactful ones. 
 
-We understand as well something else, which is the capability we have to create **XDR Incidents** from outside of the Security Product, but from the Security Alert Collector. So a good way to ingest Product Security Events into XDR is to create a process which periodically read Security Product events were they are collected ( like within a syslog server ) and then create XDR Incident on the behalf of the Security Product. This second approach is absolutely valid in terms of Security Strategy.
+We understand as well something else, which is the capability we have to create **XDR Incidents** from outside of the Security Product, but from the Security Alert Collector. So a good way to ingest Product Security Events into XDR is to create a process which periodically read Security Product events were they are located ( like within a syslog server ) and then create XDR Incident on the behalf of the Security Product. This second approach is absolutely valid in terms of Security monitoring strategy.
 
-The goal of an **Incident** as object containers is to collect and gather all alerts that are related to the same security threat. Gathering these interpreted alerts in one place ( into an **incident** ) helps the Security Team to better understand what happen and help to react efficiently.
+The goal of an **Incident** as object containers is to collect and gather all alerts that are related to the same security threat. Gathering these interpreted alerts in one place ( the **incident** ) helps the Security Team to better understand what happen and help to react efficiently.
 
 That means that one part of the complete **Incident** management process is to create an **Incident** if this one doesn't already exist and attach to it every **sightings** that are related to the same threat. And if the **Incident** already exists, then just attach to it **nex sightings** related to the same Security Issue.
 
 **Sightings** are supposed to contain **targets** ( the victim machines ) and **observables** ( all suspicious objects which target victim machines ( **targets** ) ). And **Sightings** must contain the relationship that link targets and observables together.
 
-Each relationship is a directed edge on a graph, and requires a source_ref, a target_ref, and a relationship-type.
+Each relationship is a directed edge on a graph, and requires a **source** ( source_ref), a **target**) target_ref, and a **relationship-type**.
 
 When XDR receives any **observable**, then several Threat Hunting operations are automatically triggered. This is the case for enrichment and relation graph calculations.  And this is what help Security Operators to go very fast into Investigations. XDR automatically take a part of the investigation operations and present results to Security Operators.
 
 This is where the XDR Threat Hunting power is.
 
 **Relationship** is one of the key components of CTIM. It is used at several levels. This is a table that exists within the CTIM data structure. **Relationships** are used to attach a Sighting to an Incident. And **Relationship** are used to link an **observable** to a **target**. In these two case above we will talk about **Incident Relationships** and **Observable Relationships** event these object are located into the same XDR internal table.
+
+**Relationships** link as well **Sightings** to **Indicators** which can be seen as categories of threats. We don't deal within **indicators** in this documentation but keep in mind that **Indicators** are part of the game as well.
 
 
 At this point let's put all this above together : if we want to use XDR APIs to create an **Incident** within XDR, then we have to use the XDR APIs :
@@ -63,7 +65,9 @@ The most common to use will be ( They are enough to create XDR Incidents ) :
 - Incident
 - Relationships
 - Sightings
-- Judgments ( optionnal )
+- Judgments
+
+**Judgments** are not absolutely mandatory for creating an **Incident**. But storing an observable into the private intell is recommended. **judgments** can store for example a confirmed malicious observable detected by an IPS during internal attack attempts. This observable could be an internal infected machine and having a **Maliciou** Judgment for it can help to block it temporarly within the network.
 
 Other APIs are linked to **Incidents** but we don't use them in the context of this article. 
 
@@ -72,14 +76,15 @@ Other APIs are linked to **Incidents** but we don't use them in the context of t
 - actors
 - campaign
 - coa ( course of actions, in other word the list of possible mitigation actions )
+- Attack Paterns
 
-We understand that the CTIM internal data structure is already ready to manage more complex and more detailed security issue documentation. We don't cover these additional APIs in this article.
+We understand that the CTIM internal data structure is already ready to manage more complex and more detailed security situation documentation. We don't cover these additional APIs in this article but keep in mind that they are as well part of the game.
 
 ### Sightings
 
 From original Security Product **events**, we are supposed to create one **Sighting per product event**. 
 
-Every **Sightings** must contain **Observables** and their **targets**. And for every couple of observable to target, we have to find the **Relationship** that link the **observable** to the **target**. In this case we talk about **observable relationships**.
+Every **Sightings** must contain **Observables** and their **targets**. And for every couple of observable to target, we have to identify the **Relationship** that link the **observable** to the **target**. For this kind of relationship, in this documentation we will talk about **observable relationships**.
 
 The list of the possible **observable relationships** values is big. You can have a look within the CTIM schema what are the possible values.
 
@@ -89,15 +94,17 @@ And then you can understand easily the meaning of these values and when to use t
 
 Thanks to this schema we understand how wide the scope is for describing complex relationships between objects. We understand that we can described almost object meshed that can exist within the IT.
 
-The XDR attack graph is builted upon these relationships. This graph is a just a visual representation of these relationships and XDR is just en renderer tools that graph what is stored into the CTIM datastructure.
+The XDR attack graph is builted upon these relationships. This graph is a just a visual representation of these relationships and XDR is just a renderer tool that graphs what is stored into the CTIM database.
 
-You probably understand at this point that if you know how to ingest into XDR CTIM objects and their relationship, then you can visualize any kind of interesting graph. This is correct !
+You probably understand at this point that if you know how to ingest into XDR CTIM objects and their relationship, then you can create and visualize any kind of interesting graph. This is correct !
 
 Okay let's move forward on the **sighings** creation process.
 
 ### Incidents
 
-Once **Sightings** are created, then we can create an **Incident** and attach every **Sigthings** to it thank to another kind of relationships. With actually and Incident relationship. Attaching **Sightings** to **Incidents** is basically done with the **member of** relationship. We don't need to use other relationship values
+Once **Sightings** are created, then we can create an **Incident** and attach every **Sigthings** to it thank to specific kind of **relationship**. We will call it **Incident relationship**.
+
+Attaching **Sightings** to **Incidents** is basically done with the **member of** **Incident relationship**. We don't need to use other relationship values
 
 But in order to have the knowledge of it, here is the CTIM Incident relationships possible values :
 
@@ -122,7 +129,7 @@ Have a look to the following documentation in order to have guidelines on this :
 
 ### Observables types.
 
-Before moving forward, let's talk about **targets** and **observables**. We will see later in the documentation that they way to declare these objects are not the same. But for both objects we have to determine an object type which is a mandatory attribute to use mention.
+Before moving forward, let's talk about **targets** and **observables**. We will see later in the documentation that the way to declare these objects are not the same. But for both objects we have to determine an object type which is a mandatory attribute to use mention.
 
 The list here under gives you the possible object type values :
 
@@ -157,9 +164,9 @@ We understand that for every observables we will have to determine it's type. Th
 
 ## Create Incidents and their sightings
 
-Creating an **Incident** consists of creating several objects and then link them together thanks to relationships.
+Creating an **Incident** consists of creating several objects and then link them together thanks to the appropriate **relationships**.
 
-That means that we are supposed to use several APIs calls to create all what is needed to create an Incident and all the attached objects. 
+That means that we are supposed to use several APIs calls to create all what is needed to create an **Incident** and every attached objects. 
 
 This can be a lot of API calls !
 
