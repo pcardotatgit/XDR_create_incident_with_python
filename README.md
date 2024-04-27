@@ -8,7 +8,7 @@ This python script is to explain every details. For this reason every steps of t
 
 This script relies on everything that is described into the [**Dealing with XDR CTIM**](https://github.com/pcardotatgit/XDR_create_incident_with_python/blob/main/create_XDR_incidents.md) documentation. 
 
-Please don't hesitate to spend time to go to this documentation if you want to understand every details of the CTIM object the python script share here deal with.
+Please don't hesitate to spend time to go to this documentation if you want to understand every details of the CTIM objects the python script shared here deals with.
 
 ## How to create your own Incident ?
 
