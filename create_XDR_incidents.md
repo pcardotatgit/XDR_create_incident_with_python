@@ -67,7 +67,7 @@ The most common to use will be ( They are enough to create XDR Incidents ) :
 - Sightings
 - Judgments
 
-**Judgments** are not absolutely mandatory for creating an **Incident**. But storing an observable into the private intell is recommended. **judgments** can store for example a confirmed malicious observable detected by an IPS during internal attack attempts. This observable could be an internal infected machine and having a **Maliciou** Judgment for it can help to block it temporarly within the network.
+**Judgments** are not absolutely mandatory for creating an **Incident**. But storing an observable into the private intell is recommended. **judgments** can store for example a confirmed malicious observable detected by an IPS during internal attack attempts. This observable could be an internal infected machine and having a **Malicious** Judgment for it can help to block it temporarly within the network.
 
 Other APIs are linked to **Incidents** but we don't use them in the context of this article. 
 
@@ -192,7 +192,7 @@ The way to link object together is to use their ID. Actually External IDs which 
 
 Some guidelines exist as best practices to create external IDs. You can have a look to it here [How to Build an Excellent External ID](https://github.com/threatgrid/ctim/blob/master/doc/tutorials/how-to-build-an-excellent-external-id.md)
 
-So regarding External IDs, all this above means that one of the first operation to do when we have identified all the objects that will compose the **Incident**, is to create every need **external IDs : xid**.
+So regarding External IDs, all this above means that one of the first operation to do when we have identified all the objects that will compose the **Incident**, is to create every needed **external IDs : xid**.
 
 One benefits of the python script shared with you is that you don't have to take care about External IDs, the python script takes care about them for you.
 
@@ -202,7 +202,7 @@ The **JSON bundle** is very easy, this is just an assembly of every object defin
 
 And that's it.
 
-    For reference, the following resources can help to complete the understanding of the scope of bunlde. Have a look to the [**SecureX Threat Response CTIM Bundle Builder** page ](https://github.com/CiscoSecurity/tr-05-ctim-bundle-builder) to learn about a python module that simplifies **bundle** creation.
+For reference, the following resources can help to complete the understanding of the scope of bunlde. Have a look to the [**SecureX Threat Response CTIM Bundle Builder** page ](https://github.com/CiscoSecurity/tr-05-ctim-bundle-builder) to learn about a python module that simplifies **bundle** creation.
 
 ### How to read an Incident and parse all Sightings it contains ?
 
