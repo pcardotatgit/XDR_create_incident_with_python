@@ -2,9 +2,9 @@
 
 This article share python scripts that create an XDR Incident and attach one sighting into it.
 
-The goal is to share with the audience an example of working static Incident creation example done by a python script. 
+The goal is to share with the audience an example of working static Incident creation thanks python scriptings. 
 
-This python script aim is pedagy. For this reason every steps of the creation of the Incident are shown one by one.
+This python script is to explain every details. For this reason every steps of the creation of the Incident are shown one by one.
 
 This script relies on everything that is described into the [**Dealing with XDR CTIM**](https://github.com/pcardotatgit/XDR_create_incident_with_python/blob/main/create_XDR_incidents.md) documentation. Refer to this documentation if you want to understand every details of what the python script does.
 
@@ -12,7 +12,7 @@ This script relies on everything that is described into the [**Dealing with XDR 
 
 Let's answer now to the question about how to create your own XDR **Incident** with your own data. 
 
-It is very simple, you just have to edit the **demo_data.py** script and replace the data this file contains by your own data. Don't change variable names, just change the values of these variables.
+It is simple actually, at an high level you don't need to understand how works the python script, you just have to put your data into the demo data file. For doing so to edit the **demo_data.py** script and replace the data this file contains by your own data. Don't change variable names, just change the values of these variables.
 
 If you have a look to this file, you understand that the variables it contains are string representations of JSON payloads. Your mission then will be to create valid JSON payloads.
 
@@ -85,7 +85,7 @@ Each object has an API execution result. This result will be equal to : **create
 
 Errors will be most of the time due to an invalid JSON payload. 
 
-Within the **sightinh** JSON payload you have to notice that every object mentionned into observable relationships must be declared has an observable as well. If one observable is missing the sighting will not be created.
+Within the **sighting** JSON payload you have to notice that every object mentionned into observable relationships must be declared has an observable as well. If one observable is missing the sighting will not be created.
  
 ## Delete the XDR Demo Incident and sighting
 
@@ -93,7 +93,7 @@ In order to clean up everything into XDR, just run the
 
     python 2-delete_XDR_demo_data.py
 
-This script delete every Incident, Sightings, Judgments, relationships which have their source = XDR_Demo    
+This script delete every Incident, Sightings, Judgments, relationships which have their **source = XDR_Demo**    
     
 ## What are the Required fields for objects ?
 
@@ -213,6 +213,12 @@ targets=[
 
 ## Recommandation for description formating
 
-**Incidents** Includes a detailed **description** field which is a very important component. It is supposed to be a documentation summary which help Security Operator
+**Incidents** Includes a detailed **description** field which is a very important component. It is supposed to be a documentation summary which help Security Operator.
+
+In an ideal situation, the description is supposed to help SOC operators to understand in one vue the situation. And instantly engage them into action.
+
+Writing good description is key and can be considered as a science.
+
+Here are some recommendation about this.
 
 [Incident Summary Guidelines](https://github.com/threatgrid/ctim/blob/master/doc/tutorials/incident-summary-guidelines.md)
