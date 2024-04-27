@@ -202,7 +202,7 @@ The **JSON bundle** is very easy, this is just an assembly of every object defin
 
 And that's it.
 
-For reference, the following resources can help to complete the understanding of the scope of bunlde. Have a look to the [**SecureX Threat Response CTIM Bundle Builder** page ](https://github.com/CiscoSecurity/tr-05-ctim-bundle-builder) to learn about a python module that simplifies **bundle** creation.
+For reference, the following resources can help to complete the understanding of the scope of bunlde. Have a look to the [**Threat Response CTIM Bundle Builder** page ](https://github.com/CiscoSecurity/tr-05-ctim-bundle-builder) to learn about a python module that simplifies **bundle** creation.
 
 ### How to read an Incident and parse all Sightings it contains ?
 
