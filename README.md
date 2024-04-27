@@ -6,7 +6,9 @@ The goal is to share with the audience an example of working static Incident cre
 
 This python script is to explain every details. For this reason every steps of the creation of the Incident are shown one by one.
 
-This script relies on everything that is described into the [**Dealing with XDR CTIM**](https://github.com/pcardotatgit/XDR_create_incident_with_python/blob/main/create_XDR_incidents.md) documentation. Refer to this documentation if you want to understand every details of what the python script does.
+This script relies on everything that is described into the [**Dealing with XDR CTIM**](https://github.com/pcardotatgit/XDR_create_incident_with_python/blob/main/create_XDR_incidents.md) documentation. 
+
+Please don't hesitate to spend time to go to this documentation if you want to understand every details of the CTIM object the python script share here deal with.
 
 ## How to create your own Incident ?
 
